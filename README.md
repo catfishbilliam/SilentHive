@@ -1,7 +1,7 @@
-# Bee Colony Collapse Disorder Visualization
+# SilentHive: A Colony Collapse Disorder Visualization
 
 ## Overview
-**Bee Colony Collapse Disorder Visualization** is an interactive web application that visualizes data on bee colony losses across the United States. The app uses Babylon.js for 3D rendering, Chart.js for data visualization, and Express.js as the backend server to fetch and serve data.
+**SilentHive** is an interactive web application that visualizes data on bee colony losses across the United States. The app uses Babylon.js for 3D rendering, Chart.js for data visualization, and Express.js as the backend server to fetch and serve data.
 
 ## Features
 - Visualizes bee colony collapse data in 3D using Babylon.js.
