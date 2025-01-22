@@ -1,14 +1,48 @@
 let lineChart;
 let barChart;
 
+function toggleDropdown(container) {
+    const content = container.querySelector(".info-content");
+    const caret = container.querySelector(".caret");
+    const header = container.querySelector(".header");
+
+    if (!content || !caret || !header) return;
+
+    header.addEventListener("click", () => {
+        const isExpanded = container.classList.contains("expanded");
+
+        if (isExpanded) {
+            console.log("Collapsing dropdown.");
+            content.style.display = "none";
+            caret.classList.remove("open");
+            container.classList.remove("expanded");
+            container.style.maxHeight = "50px"; // Collapsed height
+            container.style.overflowY = "hidden"; // Disable scrolling
+        } else {
+            console.log("Expanding dropdown.");
+            content.style.display = "block";
+            const contentHeight = content.scrollHeight;
+            const maxAvailableHeight =
+                window.innerHeight - container.getBoundingClientRect().top - 20;
+
+            container.style.maxHeight = `${Math.min(contentHeight + 50, maxAvailableHeight)}px`;
+            container.style.overflowY = "auto"; // Enable scrolling
+            caret.classList.add("open");
+            container.classList.add("expanded");
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.getElementById('renderCanvas');
+    const canvas = document.getElementById("renderCanvas");
     const engine = new BABYLON.Engine(canvas, true);
     const customLoadingScreen = document.getElementById("customLoadingScreen");
     const mainContainer = document.getElementById("main-container");
+    const infoContainer = document.getElementById("title-info-container");
+    const stateContainer = document.getElementById("state-info-container");
 
-    // Display the loading UI
-    BABYLON.Engine.prototype.displayLoadingUI = function() {
+    // Show the loading UI immediately
+    BABYLON.Engine.prototype.displayLoadingUI = function () {
         if (customLoadingScreen) {
             customLoadingScreen.style.display = "flex";
             customLoadingScreen.style.opacity = "1";
@@ -18,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Hide the loading UI and show the app
-    BABYLON.Engine.prototype.hideLoadingUI = function() {
+    // Hide the loading UI once ready
+    BABYLON.Engine.prototype.hideLoadingUI = function () {
         if (customLoadingScreen) {
             customLoadingScreen.style.opacity = "0";
             setTimeout(() => {
@@ -27,55 +61,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (mainContainer) {
                     mainContainer.style.display = "block";
                 }
-            }, 500); // Add a small delay for smooth transition
+
+                // Apply dropdown functionality after showing main content
+                if (infoContainer) toggleDropdown(infoContainer);
+                if (stateContainer) toggleDropdown(stateContainer);
+
+                const disappearedBeesContainer = document.getElementById("disappeared-bees-container");
+                if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
+            }, 500);
         }
     };
 
-    // Trigger the loading screen
+    // Display loading UI immediately
     engine.displayLoadingUI();
 
-    initializeCharts();
-
-
-    function toggleDropdown(container) {
-        const content = container.querySelector(".info-content");
-        const caret = container.querySelector(".caret");
-        const header = container.querySelector(".header");
-    
-        if (!content || !caret || !header) return;
-    
-        header.addEventListener("click", () => {
-            const isExpanded = container.classList.contains("expanded");
-    
-            if (isExpanded) {
-                console.log("Collapsing dropdown.");
-                content.style.display = "none";
-                caret.classList.remove("open");
-                container.classList.remove("expanded");
-                container.style.maxHeight = "50px"; // Collapsed height
-                container.style.overflowY = "hidden"; // Disable scrolling
-            } else {
-                console.log("Expanding dropdown.");
-                content.style.display = "block";
-                const contentHeight = content.scrollHeight;
-                const maxAvailableHeight =
-                    window.innerHeight - container.getBoundingClientRect().top - 20;
-    
-                container.style.maxHeight = `${Math.min(contentHeight + 50, maxAvailableHeight)}px`;
-                container.style.overflowY = "auto"; // Enable scrolling
-                caret.classList.add("open");
-                container.classList.add("expanded");
-            }
-        });
-    }
-    
-    
-    
+    // Example toggleDropdown usage
     if (infoContainer) toggleDropdown(infoContainer);
     if (stateContainer) toggleDropdown(stateContainer);
 
-const disappearedBeesContainer = document.getElementById("disappeared-bees-container");
-if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
+    const disappearedBeesContainer = document.getElementById("disappeared-bees-container");
+    if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
 
     let selectedYear = 2019;
     let selectedState = null;
