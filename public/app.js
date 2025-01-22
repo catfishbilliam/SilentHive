@@ -153,17 +153,6 @@ if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
     "Wyoming_Cube.007": "WYOMING"
     };
 
-const stateDropdown = document.getElementById("state-dropdown");
-
-if (stateDropdown) {
-    Object.values(stateNames).forEach(stateName => {
-        const option = document.createElement("option");
-        option.value = stateName;
-        option.textContent = stateName;
-        stateDropdown.appendChild(option);
-    });
-}
-
     function logDetail(message, data = null) {
         console.log(`[DEBUG] ${message}`);
         if (data) {
