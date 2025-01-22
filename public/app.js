@@ -653,6 +653,8 @@ async function handleStateSelection(state) {
     }
 });
 
+const stateDropdown = document.getElementById("state-dropdown");
+
 if (stateDropdown) {
     stateDropdown.addEventListener("change", async (event) => {
         const selectedStateName = event.target.value;
