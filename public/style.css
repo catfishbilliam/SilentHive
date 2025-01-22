@@ -224,3 +224,31 @@ select option {
     line-height: 1.2;
     font-weight: normal;
 }
+
+@media (max-width: 768px) {
+    #main-container {
+        flex-direction: column;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #info-wrapper, #year-selector {
+        position: static;
+        margin: 10px auto;
+        width: 90%;
+        max-width: 500px;
+    }
+
+    #graph-panel {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .graph-placeholder {
+        width: 100%;
+        max-width: 500px;
+        margin: 10px auto;
+    }
+}
+

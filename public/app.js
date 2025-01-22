@@ -5,10 +5,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('renderCanvas');
     const engine = new BABYLON.Engine(canvas, true);
     const customLoadingScreen = document.getElementById("customLoadingScreen");
-
     const infoContainer = document.getElementById("title-info-container");
     const stateContainer = document.getElementById("state-info-container");
     const graphPanel = document.getElementById("graph-panel");
+
+    // Display a message for screens smaller than a tablet
+    function checkScreenSize() {
+        const messageContainer = document.createElement("div");
+        messageContainer.id = "screen-size-warning";
+        messageContainer.style.position = "fixed";
+        messageContainer.style.top = "0";
+        messageContainer.style.left = "0";
+        messageContainer.style.width = "100%";
+        messageContainer.style.height = "100%";
+        messageContainer.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+        messageContainer.style.color = "white";
+        messageContainer.style.display = "flex";
+        messageContainer.style.flexDirection = "column";
+        messageContainer.style.alignItems = "center";
+        messageContainer.style.justifyContent = "center";
+        messageContainer.style.fontSize = "20px";
+        messageContainer.style.zIndex = "1000";
+        messageContainer.innerHTML = `
+            <p>Please view this app on a tablet or desktop for the best experience.</p>
+        `;
+        document.body.appendChild(messageContainer);
+
+        const removeWarning = () => {
+            if (messageContainer) {
+                document.body.removeChild(messageContainer);
+            }
+        };
+
+        if (window.innerWidth >= 768) {
+            removeWarning();
+        } else {
+            window.addEventListener("resize", () => {
+                if (window.innerWidth >= 768) {
+                    removeWarning();
+                }
+            });
+        }
+    }
+
+    checkScreenSize();
 
     initializeCharts();
 
