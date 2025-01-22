@@ -57,6 +57,9 @@ select option {
     left: 20px;
     max-width: 300px;
     gap: 10px;
+    max-height: calc(100vh - 40px); /* Prevent overflow */
+    overflow-y: auto; /* Enable scrolling */
+    box-sizing: border-box; /* Include padding/borders */
 }
 
 #renderCanvas {
@@ -73,12 +76,12 @@ select option {
     border-radius: 8px;
     z-index: 10;
     cursor: pointer;
-    overflow: hidden;
     padding: 10px;
     display: flex;
     flex-direction: column;
     transition: max-height 0.3s ease;
-    max-height: 50px;
+    max-height: 50px; /* Default collapsed height */
+    overflow-y: hidden; /* Prevent scrolling in collapsed state */
 }
 
 .header {
@@ -122,7 +125,25 @@ select option {
 }
 
 .dropdown-container.expanded {
-    max-height: 500px;
+    max-height: calc(100vh - 80px); /* Dynamic expanded height */
+    overflow-y: auto; /* Enable scrolling in expanded state */
+}
+
+.info-content {
+    display: block; /* Ensure it's not flex for scrolling */
+    overflow-y: auto; /* Allow scrolling inside this content */
+    line-height: 1.5;
+}
+
+.dropdown-container.expanded::-webkit-scrollbar {
+    width: 8px;
+}
+.dropdown-container.expanded::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+.dropdown-container.expanded::-webkit-scrollbar-track {
+    background: rgba(255, 223, 0, 0.2);
 }
 
 #title-info-container, #state-info-container {
@@ -186,9 +207,60 @@ select option {
     max-height: 600px;
 }
 
+#year-selector::-webkit-scrollbar {
+    width: 8px;
+}
+#year-selector::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+#year-selector::-webkit-scrollbar-track {
+    background: rgba(255, 223, 0, 0.2);
+}
+
 #year-selector .header {
     font-weight: bold;
 }
+
+/* Custom Scrollbar for Select Dropdown */
+#state-dropdown {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: black;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    max-height: 150px; /* Limit height for overflow */
+    overflow-y: auto; /* Enable scrolling for overflow */
+}
+
+/* Style the scrollbar */
+#state-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+#state-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+#state-dropdown::-webkit-scrollbar-track {
+    background: rgba(255, 223, 0, 0.2);
+}
+
+/* Dropdown items style */
+#state-dropdown option {
+    padding: 8px;
+    background: white;
+    cursor: pointer;
+}
+
+/* Option hover effect */
+#state-dropdown option:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 
 #year-selector .info-content {
     display: flex;
@@ -229,26 +301,56 @@ select option {
     #main-container {
         flex-direction: column;
         padding: 10px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     #info-wrapper, #year-selector {
         position: static;
-        margin: 10px auto;
+        margin: 15px auto;
         width: 90%;
         max-width: 500px;
+        padding: 15px;
+        touch-action: manipulation;
     }
 
     #graph-panel {
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: auto;
-        padding: 10px;
+        padding: 15px;
     }
 
     .graph-placeholder {
         width: 100%;
         max-width: 500px;
-        margin: 10px auto;
+        margin: 15px 0;
+    }
+
+    #info-wrapper {
+        top: 10px;
+        left: 10px;
+        max-width: 90%;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .dropdown-container.expanded {
+        max-height: calc(100vh - 100px);
+        min-height: 150px; /* Ensure usability */
+        overflow-y: auto;
+    }
+
+    label, select, .caret {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) and (orientation: landscape) {
+    #main-container {
+        flex-direction: row;
+        justify-content: space-between;
     }
 }
 

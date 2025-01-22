@@ -54,29 +54,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function toggleDropdown(container) {
-        const content = container.querySelector('.info-content');
-        const caret = container.querySelector('.caret');
-        const header = container.querySelector('.header');
-
+        const content = container.querySelector(".info-content");
+        const caret = container.querySelector(".caret");
+        const header = container.querySelector(".header");
+    
         if (!content || !caret || !header) return;
-
-        header.addEventListener('click', () => {
-            const isExpanded = container.classList.contains('expanded');
-
+    
+        header.addEventListener("click", () => {
+            const isExpanded = container.classList.contains("expanded");
+    
             if (isExpanded) {
-                content.style.display = 'none';
-                caret.classList.remove('open');
-                container.classList.remove('expanded');
-                container.style.maxHeight = '70px'; 
+                console.log("Collapsing dropdown.");
+                content.style.display = "none";
+                caret.classList.remove("open");
+                container.classList.remove("expanded");
+                container.style.maxHeight = "50px"; // Collapsed height
+                container.style.overflowY = "hidden"; // Disable scrolling
             } else {
-                content.style.display = 'block';
-                caret.classList.add('open');
-                container.classList.add('expanded');
-                container.style.maxHeight = `${content.scrollHeight + 100}px`; 
+                console.log("Expanding dropdown.");
+                content.style.display = "block";
+                const contentHeight = content.scrollHeight;
+                const maxAvailableHeight =
+                    window.innerHeight - container.getBoundingClientRect().top - 20;
+    
+                container.style.maxHeight = `${Math.min(contentHeight + 50, maxAvailableHeight)}px`;
+                container.style.overflowY = "auto"; // Enable scrolling
+                caret.classList.add("open");
+                container.classList.add("expanded");
             }
         });
     }
-
+    
+    
+    
     if (infoContainer) toggleDropdown(infoContainer);
     if (stateContainer) toggleDropdown(stateContainer);
 
@@ -549,7 +559,7 @@ function createScene() {
     const scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
-    const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 2.5, 400, new BABYLON.Vector3(0, 0, 0), scene);
+    const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 2.5, 500, new BABYLON.Vector3(0, -50, 0), scene);
     camera.attachControl(canvas, true);
 
     const hemisphericLight = new BABYLON.HemisphericLight("hemisphericLight", new BABYLON.Vector3(0, 1, 0), scene);
