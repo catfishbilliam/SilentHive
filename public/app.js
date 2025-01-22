@@ -34,12 +34,36 @@ function toggleDropdown(container) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // Display a message for mobile users
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "white";
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh";
+        document.body.style.textAlign = "center";
+        document.body.style.fontFamily = "Roboto Condensed, monospace";
+        document.body.innerHTML = `
+            <div>
+                <h1 style="font-size: 24px; margin-bottom: 10px;">Please open the app on a desktop or tablet for the best experience.</h1>
+                <p style="font-size: 18px;">Mobile devices are not supported at this time.</p>
+            </div>
+        `;
+        console.log("[INFO] Mobile user detected. Displaying message.");
+        return; // Stop further execution
+    }
+
     const canvas = document.getElementById("renderCanvas");
     const engine = new BABYLON.Engine(canvas, true);
     const customLoadingScreen = document.getElementById("customLoadingScreen");
     const mainContainer = document.getElementById("main-container");
     const infoContainer = document.getElementById("title-info-container");
     const stateContainer = document.getElementById("state-info-container");
+
+    
 
     // Show the loading UI immediately
     BABYLON.Engine.prototype.displayLoadingUI = function () {
