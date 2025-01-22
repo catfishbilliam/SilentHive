@@ -350,6 +350,34 @@ select option {
         padding: 10px;
         font-size: 14px;
     }
+
+    body, html {
+        font-size: 10px; /* General base font size */
+    }
+
+    .header {
+        font-size: 14px; /* Smaller header text */
+    }
+
+    .info-content p {
+        font-size: 12px; /* Smaller paragraph text */
+    }
+
+    label, select, .caret {
+        font-size: 12px; /* Maintain readability while being smaller */
+    }
+
+    .dropdown-container .title {
+        font-size: 14px; /* Smaller title text */
+    }
+
+    #year-selector select {
+        font-size: 12px;
+    }
+
+    .citation, .footnote {
+        font-size: 9px; /* Smaller text for citations and footnotes */
+    }
 }
 
 
