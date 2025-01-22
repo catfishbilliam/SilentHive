@@ -9,6 +9,13 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Inter:ital,opsz,wght@0,14..32,700;1,14..32,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <script>
+        // Ensure the loading screen is displayed before anything else
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("customLoadingScreen").style.display = "flex";
+        });
+    </script>
 </head>
 <body>
     <div id="customLoadingScreen" style="

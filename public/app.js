@@ -5,50 +5,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('renderCanvas');
     const engine = new BABYLON.Engine(canvas, true);
     const customLoadingScreen = document.getElementById("customLoadingScreen");
-    const infoContainer = document.getElementById("title-info-container");
-    const stateContainer = document.getElementById("state-info-container");
-    const graphPanel = document.getElementById("graph-panel");
+    const mainContainer = document.getElementById("main-container");
 
-    // Display a message for screens smaller than a tablet
-    function checkScreenSize() {
-        const messageContainer = document.createElement("div");
-        messageContainer.id = "screen-size-warning";
-        messageContainer.style.position = "fixed";
-        messageContainer.style.top = "0";
-        messageContainer.style.left = "0";
-        messageContainer.style.width = "100%";
-        messageContainer.style.height = "100%";
-        messageContainer.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-        messageContainer.style.color = "white";
-        messageContainer.style.display = "flex";
-        messageContainer.style.flexDirection = "column";
-        messageContainer.style.alignItems = "center";
-        messageContainer.style.justifyContent = "center";
-        messageContainer.style.fontSize = "20px";
-        messageContainer.style.zIndex = "1000";
-        messageContainer.innerHTML = `
-            <p>Please view this app on a tablet or desktop for the best experience.</p>
-        `;
-        document.body.appendChild(messageContainer);
-
-        const removeWarning = () => {
-            if (messageContainer) {
-                document.body.removeChild(messageContainer);
-            }
-        };
-
-        if (window.innerWidth >= 768) {
-            removeWarning();
-        } else {
-            window.addEventListener("resize", () => {
-                if (window.innerWidth >= 768) {
-                    removeWarning();
-                }
-            });
+    // Display the loading UI
+    BABYLON.Engine.prototype.displayLoadingUI = function() {
+        if (customLoadingScreen) {
+            customLoadingScreen.style.display = "flex";
+            customLoadingScreen.style.opacity = "1";
         }
-    }
+        if (mainContainer) {
+            mainContainer.style.display = "none";
+        }
+    };
 
-    checkScreenSize();
+    // Hide the loading UI and show the app
+    BABYLON.Engine.prototype.hideLoadingUI = function() {
+        if (customLoadingScreen) {
+            customLoadingScreen.style.opacity = "0";
+            setTimeout(() => {
+                customLoadingScreen.style.display = "none";
+                if (mainContainer) {
+                    mainContainer.style.display = "block";
+                }
+            }, 500); // Add a small delay for smooth transition
+        }
+    };
+
+    // Trigger the loading screen
+    engine.displayLoadingUI();
 
     initializeCharts();
 
@@ -160,41 +144,6 @@ if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
         }
     }
 
-    BABYLON.Engine.prototype.displayLoadingUI = function() {
-        if (customLoadingScreen) {
-            customLoadingScreen.style.display = "flex";
-            customLoadingScreen.style.opacity = "1";
-        }
-        if (infoContainer) infoContainer.style.display = "none";
-        if (stateContainer) stateContainer.style.display = "none";
-        if (graphPanel) graphPanel.style.display = "none";
-    };
-
-    BABYLON.Engine.prototype.hideLoadingUI = function() {
-        if (customLoadingScreen) {
-            customLoadingScreen.style.opacity = "0";
-            setTimeout(() => {
-                customLoadingScreen.style.display = "none";
-            }, 500);
-        }
-        if (infoContainer) infoContainer.style.display = "flex";
-        if (stateContainer) stateContainer.style.display = "flex";
-        if (graphPanel) graphPanel.style.display = "flex";
-    };
-
-    window.addEventListener("load", function() {
-        if (infoContainer) {
-            infoContainer.style.display = "flex";
-        }
-        if (stateContainer) {
-            stateContainer.style.display = "flex";
-        }
-        if (graphPanel) {
-            graphPanel.style.display = "flex";
-        }
-    });
-
-    console.log("[INFO] DOM content loaded and script initialized.");
 
 function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -684,6 +633,12 @@ if (stateDropdown) {
 
     window.addEventListener('resize', () => {
         engine.resize();
+    });
+
+     // Hide the loading UI once the scene is ready
+     scene.executeWhenReady(() => {
+        engine.hideLoadingUI();
+        console.log("[DEBUG] Scene is fully loaded and ready.");
     });
 
     scene.executeWhenReady(() => {
