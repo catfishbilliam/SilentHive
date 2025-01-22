@@ -228,19 +228,38 @@ function initializeEmptyLineChart() {
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, // Enable responsiveness
+            maintainAspectRatio: false, // Disable default aspect ratio to fit parent container
             scales: {
                 x: {
                     title: {
                         display: true,
                         text: 'Year'
+                    },
+                    ticks: {
+                        font: {
+                            size: 10, // Adjust tick font size for mobile
+                        }
                     }
                 },
                 y: {
                     title: {
                         display: true,
                         text: 'Total Loss'
+                    },
+                    ticks: {
+                        font: {
+                            size: 10, // Adjust tick font size for mobile
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 12 // Adjust legend font size for mobile
+                        }
                     }
                 }
             }
@@ -275,19 +294,38 @@ function initializeEmptyBarChart() {
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, // Enable responsiveness
+            maintainAspectRatio: false, // Fit to parent container
             scales: {
                 x: {
                     title: {
                         display: true,
                         text: 'Quarter'
+                    },
+                    ticks: {
+                        font: {
+                            size: 10, // Adjust tick font size for mobile
+                        }
                     }
                 },
                 y: {
                     title: {
                         display: true,
                         text: 'Total Loss'
+                    },
+                    ticks: {
+                        font: {
+                            size: 10, // Adjust tick font size for mobile
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 12 // Adjust legend font size for mobile
+                        }
                     }
                 }
             }
@@ -296,6 +334,7 @@ function initializeEmptyBarChart() {
 
     console.log("[INFO] Empty bar chart initialized");
 }
+
 
 async function updateLineChart(state) {
     console.log(`[INFO] Updating line chart for state: ${state}`);

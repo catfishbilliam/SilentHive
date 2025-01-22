@@ -354,3 +354,76 @@ select option {
     }
 }
 
+
+/* Mobile-specific styling for devices up to 480px */
+@media (max-width: 480px) {
+    body, html {
+        font-size: 14px;
+        overflow-x: hidden;
+    }
+
+    #main-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #info-wrapper {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .dropdown-container {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    #year-selector {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    #graph-panel {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .graph-placeholder {
+        width: 100%;
+        height: auto;
+    }
+
+    #renderCanvas {
+        position: relative;
+        width: 100%;
+        height: 300px; /* Limit canvas height */
+        margin-bottom: 15px;
+    }
+
+    .info-content p {
+        font-size: 14px;
+    }
+
+    select {
+        font-size: 14px;
+    }
+
+    .caret {
+        font-size: 12px;
+    }
+
+    .dropdown-container .title {
+        font-size: 16px;
+    }
+
+    #loading-text-container {
+        font-size: 20px;
+    }
+}
+
