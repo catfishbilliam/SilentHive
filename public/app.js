@@ -35,6 +35,7 @@ function toggleDropdown(container) {
 
 document.addEventListener("DOMContentLoaded", () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth < 768;
 
     if (isMobile && isSmallScreen) {
         // Display a message for mobile users
