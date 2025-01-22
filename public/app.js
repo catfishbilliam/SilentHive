@@ -85,13 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (mainContainer) {
                     mainContainer.style.display = "block";
                 }
-
-                // Apply dropdown functionality after showing main content
-                if (infoContainer) toggleDropdown(infoContainer);
-                if (stateContainer) toggleDropdown(stateContainer);
-
-                const disappearedBeesContainer = document.getElementById("disappeared-bees-container");
-                if (disappearedBeesContainer) toggleDropdown(disappearedBeesContainer);
             }, 500);
         }
     };
