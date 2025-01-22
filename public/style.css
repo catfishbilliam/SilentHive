@@ -385,5 +385,53 @@ select option {
     #main-container {
         flex-direction: row;
         justify-content: space-between;
+        padding: 10px; /* Add spacing for better layout */
+        gap: 10px; /* Add a gap between elements */
+    }
+
+    #info-wrapper, #year-selector {
+        width: 40%; /* Reduce width for better side-by-side layout */
+        max-width: 350px; /* Prevent it from being too wide */
+        padding: 10px; /* Reduce padding for smaller screens */
+        font-size: 12px; /* Adjust font size for content */
+    }
+
+    .dropdown-container {
+        width: 100%; /* Ensure full width within its container */
+        padding: 8px; /* Reduce padding for better fit */
+    }
+
+    .dropdown-container .title {
+        font-size: 13px; /* Slightly smaller title text */
+    }
+
+    .info-content p {
+        font-size: 12px; /* Adjust paragraph text size */
+    }
+
+    #graph-panel {
+        flex-direction: row; /* Retain horizontal layout for graphs */
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px;
+    }
+
+    .graph-placeholder {
+        width: 45%; /* Adjust width for better balance */
+        max-width: 300px; /* Ensure it fits smaller screens */
+        height: auto; /* Adapt to content */
+        margin: 10px; /* Add spacing between graphs */
+    }
+
+    body, html {
+        font-size: 11px; /* Adjust base font size */
+    }
+
+    label, select {
+        font-size: 12px; /* Keep form elements readable */
+    }
+
+    .citation, .footnote {
+        font-size: 10px; /* Keep less critical text small */
     }
 }
